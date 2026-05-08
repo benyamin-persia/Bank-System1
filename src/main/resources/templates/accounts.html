@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head><title>My Accounts</title></head>
+<body>
+<h1>My Accounts</h1>
+<p>Logged in as: <b sec:authentication="name"></b></p>
+<table border="1">
+    <tr><th>ID</th><th>Type</th><th>Balance</th><th>Status</th></tr>
+    <tr th:each="account : ${accounts}">
+        <td th:text="${account.id}"></td>
+        <td th:text="${account.type}"></td>
+        <td th:text="${account.balance}"></td>
+        <td th:text="${account.status}"></td>
+    </tr>
+</table>
+<!-- Only ADMIN sees the delete option -->
+<div sec:authorize="hasRole('ADMIN')">
+    <h3>Admin Panel</h3>
+    <a href="/admin/accounts">Manage All Accounts</a>
+</div>
+</body>
+</html>

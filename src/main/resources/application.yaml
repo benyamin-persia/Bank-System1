@@ -1,0 +1,44 @@
+spring: # Spring configuration root
+  application: # Application settings
+    name: bank-system # Application name
+
+  datasource: # Database connection settings
+    url: jdbc:h2:mem:bankdb # In memory H2 database URL
+    driver-class-name: org.h2.Driver # H2 JDBC driver
+    username: sa # Database username
+    password: # Empty database password
+
+  mail: # Mail config section
+    host: sandbox.smtp.mailtrap.io # Mailtrap SMTP host
+    port: 2525 # SMTP port
+    username: db601fd3960518 # Mailtrap username
+    password: 357a98ad075262 # Mailtrap password
+    properties: # Extra SMTP properties
+      mail: # Mail namespace
+        smtp: # SMTP settings
+          auth: true # Enable authentication
+          starttls: # TLS settings
+            enabled: true # Enable STARTTLS
+
+  jpa: # JPA configuration
+    defer-datasource-initialization: true # Delay data initialization until JPA is ready
+    hibernate: # Hibernate settings
+      ddl-auto: create-drop # Create schema on startup and drop on shutdown
+    show-sql: true # Show SQL in logs
+
+  h2: # H2 console settings
+    console: # H2 console configuration
+      enabled: true # Enable H2 web console
+
+  sql: # SQL initialization settings
+    init: # SQL init config
+      mode: always # Always run SQL scripts
+
+management: # Spring Boot Actuator configuration
+  endpoints: # Actuator endpoints settings
+    web: # Web exposure settings
+      exposure: # Exposed endpoints list
+        include: health,info,metrics # Exposes health, info, and metrics endpoints
+
+server: # Server configuration
+  port: 8081 # Application port
