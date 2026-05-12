@@ -39,6 +39,17 @@ management: # Spring Boot Actuator configuration
     web: # Web exposure settings
       exposure: # Exposed endpoints list
         include: health,info,metrics # Exposes health, info, and metrics endpoints
+springdoc:
 
+  api-docs:
+
+    enabled: true
+
+  swagger-ui:
+
+    enabled: true
+jwt:
+  secret: c2VjcmV0a2V5c2VjcmV0a2V5c2VjcmV0a2V5MTIzNDU2Nzg5
+  expiration: 3600000
 server: # Server configuration
   port: 8081 # Application port

@@ -4,14 +4,12 @@ import com.bank.service.BankUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 import java.security.Security;
@@ -31,12 +29,15 @@ public class SecurityConfig {
         http
                 .userDetailsService(userDetailsService)
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/v3/api-docs/**", "/swagger-ui/**").permitAll()  // add this
                         .requestMatchers("/h2-console/**").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/customers/add").hasRole("ADMIN")
                         .requestMatchers("/register", "/verify").permitAll() // NEW
                         .requestMatchers("/actuator/health", "/actuator/info").permitAll()
                         .requestMatchers("/actuator/**").hasRole("ADMIN")
+                        .requestMatchers("/auth/login").permitAll() // allows jwt login endpoint
+
 
                         .anyRequest().authenticated() // catch-all last
                 )
@@ -57,5 +58,10 @@ public class SecurityConfig {
                 )
                 .headers(h -> h.frameOptions(f -> f.disable()));
         return http.build();
+    }
+    @Bean // Creates AuthenticationManager bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration config)
+            throws Exception { // Gets auth manager from Spring config
+        return config.getAuthenticationManager(); // Returns AuthenticationManager bean
     }
 }
