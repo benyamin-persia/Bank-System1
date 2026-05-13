@@ -1,68 +1,257 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  color: #18211f; /* Sets the default text color to a deep financial green-black */
+  background: #f6f1e8; /* Sets a warm paper-like base color for the whole app */
+  font-family: Georgia, "Times New Roman", serif; /* Uses a refined serif to make the app feel more like a trusted institution */
+  font-synthesis: none; /* Prevents fake browser-generated font styles */
+  text-rendering: optimizeLegibility; /* Improves text rendering for headings and table content */
+  -webkit-font-smoothing: antialiased; /* Smooths text on WebKit browsers */
+  -moz-osx-font-smoothing: grayscale; /* Smooths text on Firefox macOS */
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+* {
+  box-sizing: border-box; /* Makes width calculations predictable for cards, inputs, and tables */
 }
 
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  margin: 0; /* Removes browser default spacing */
+  min-width: 320px; /* Keeps the app usable on small screens */
+  min-height: 100vh; /* Lets page shells fill the viewport */
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+body::before {
+  content: ""; /* Creates a decorative background layer */
+  position: fixed; /* Keeps the background pattern stationary while content scrolls */
+  inset: 0; /* Stretches the decorative layer across the viewport */
+  z-index: -1; /* Places the background behind the app content */
+  background:
+    radial-gradient(circle at 18% 20%, rgba(210, 172, 98, 0.28), transparent 28%),
+    radial-gradient(circle at 88% 12%, rgba(32, 92, 78, 0.22), transparent 24%),
+    linear-gradient(135deg, #f7f0e3 0%, #eef4ee 48%, #e5dccb 100%); /* Layers soft banking-inspired color fields */
+}
+
+button,
+input {
+  font: inherit; /* Makes form controls inherit the app typography */
 }
 
 button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  border: 0; /* Removes default button border */
+  cursor: pointer; /* Shows buttons are interactive */
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+button:focus-visible,
+input:focus-visible {
+  outline: 3px solid rgba(206, 163, 69, 0.45); /* Adds accessible keyboard focus feedback */
+  outline-offset: 3px; /* Separates focus ring from the element edge */
+}
+
+h1,
+h2,
+p {
+  margin-top: 0; /* Prevents unpredictable vertical gaps at the top of text blocks */
+}
+
+.auth-shell,
+.dashboard-shell {
+  min-height: 100vh; /* Gives each screen full viewport height */
+  padding: 32px; /* Adds breathing room around page content */
+}
+
+.auth-shell {
+  display: grid; /* Centers the login card with simple grid alignment */
+  place-items: center; /* Centers the login card horizontally and vertically */
+}
+
+.auth-card,
+.dashboard-panel {
+  border: 1px solid rgba(43, 61, 54, 0.12); /* Adds a subtle institutional card border */
+  background: rgba(255, 252, 245, 0.9); /* Creates a soft glassy card surface */
+  box-shadow: 0 24px 70px rgba(33, 42, 38, 0.16); /* Adds depth without harsh contrast */
+  backdrop-filter: blur(18px); /* Blends the card into the warm background */
+}
+
+.auth-card {
+  width: min(100%, 460px); /* Keeps the login card responsive and readable */
+  padding: 44px; /* Gives the form generous internal spacing */
+  border-radius: 30px; /* Softens the card into a premium rounded shape */
+}
+
+.brand-mark {
+  width: 58px; /* Creates a compact logo block */
+  height: 58px; /* Keeps the logo block square */
+  display: grid; /* Centers initials inside the mark */
+  place-items: center; /* Centers initials inside the mark */
+  margin-bottom: 28px; /* Separates branding from the heading */
+  border-radius: 18px; /* Gives the mark a modern rounded-square shape */
+  color: #fbf7ed; /* Makes the initials contrast against the dark mark */
+  background: linear-gradient(145deg, #183c33, #306b58); /* Adds a rich banking green gradient */
+  box-shadow: 0 14px 28px rgba(24, 60, 51, 0.25); /* Lifts the brand mark from the card */
+  font-weight: 700; /* Makes initials feel logo-like */
+  letter-spacing: 0.08em; /* Adds a composed brand feel */
+}
+
+.eyebrow {
+  color: #a36d18; /* Uses a gold accent for small section labels */
+  font-size: 0.78rem; /* Keeps the label secondary to the heading */
+  font-weight: 700; /* Makes the label readable at small size */
+  letter-spacing: 0.14em; /* Creates a polished uppercase label style */
+  margin-bottom: 10px; /* Separates the label from the heading */
+  text-transform: uppercase; /* Gives the label a dashboard-style tone */
+}
+
+h1 {
+  color: #172721; /* Uses deep green-black for major headings */
+  font-size: clamp(2rem, 5vw, 3.6rem); /* Scales headings smoothly across screen sizes */
+  line-height: 0.95; /* Creates a strong editorial heading rhythm */
+  margin-bottom: 14px; /* Adds controlled spacing below headings */
+}
+
+.muted-text {
+  color: #63736d; /* Makes supporting copy softer than headings */
+  line-height: 1.7; /* Improves paragraph readability */
+}
+
+.form-stack {
+  display: grid; /* Stacks labels, inputs, button, and error consistently */
+  gap: 18px; /* Adds consistent spacing between form elements */
+  margin-top: 30px; /* Separates form fields from introduction copy */
+}
+
+label {
+  display: grid; /* Keeps label text and input aligned vertically */
+  gap: 8px; /* Separates the label text from the input */
+  color: #2f423b; /* Gives labels enough contrast without overpowering */
+  font-weight: 700; /* Makes labels easy to scan */
+}
+
+input {
+  width: 100%; /* Makes inputs fill the card width */
+  border: 1px solid rgba(43, 61, 54, 0.18); /* Adds a subtle input boundary */
+  border-radius: 16px; /* Matches the soft card shape */
+  padding: 14px 16px; /* Creates a comfortable typing target */
+  color: #172721; /* Keeps typed text readable */
+  background: rgba(255, 255, 255, 0.72); /* Gives inputs a light surface */
+  transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease; /* Adds gentle input interaction */
+}
+
+input:hover,
+input:focus {
+  border-color: rgba(163, 109, 24, 0.55); /* Uses gold accent when an input is active */
+  box-shadow: 0 10px 24px rgba(163, 109, 24, 0.1); /* Adds a soft focus glow */
+  transform: translateY(-1px); /* Gives inputs a subtle lifted feel */
+}
+
+.primary-button,
+.secondary-button {
+  border-radius: 999px; /* Creates elegant pill-shaped actions */
+  font-weight: 800; /* Makes action text feel decisive */
+  transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease; /* Adds smooth button feedback */
+}
+
+.primary-button {
+  padding: 15px 20px; /* Creates a large primary action target */
+  color: #fffaf0; /* Keeps primary button text bright */
+  background: linear-gradient(135deg, #173d33, #2f7760); /* Uses a rich green banking gradient */
+  box-shadow: 0 16px 28px rgba(34, 91, 75, 0.22); /* Adds premium depth to the main action */
+}
+
+.secondary-button {
+  padding: 12px 18px; /* Keeps secondary action compact */
+  color: #1c342d; /* Uses dark green text for the secondary action */
+  background: #efe3cc; /* Uses a warm neutral background for logout */
+}
+
+.primary-button:hover,
+.secondary-button:hover {
+  transform: translateY(-2px); /* Lifts buttons on hover */
+  box-shadow: 0 18px 34px rgba(33, 42, 38, 0.18); /* Adds stronger hover depth */
+}
+
+.error-message {
+  border: 1px solid rgba(176, 53, 53, 0.22); /* Frames errors without shouting */
+  border-radius: 16px; /* Matches the rest of the app's rounded language */
+  padding: 12px 14px; /* Makes error text easy to read */
+  color: #8a2929; /* Uses accessible red for error text */
+  background: #fff0ec; /* Adds a soft red-tinted background */
+}
+
+.dashboard-shell {
+  display: flex; /* Lets the dashboard panel size naturally */
+  align-items: flex-start; /* Keeps content near the top like a dashboard */
+  justify-content: center; /* Centers the dashboard panel */
+}
+
+.dashboard-panel {
+  width: min(1120px, 100%); /* Keeps the dashboard readable on large screens */
+  padding: 34px; /* Adds inner spacing around dashboard content */
+  border-radius: 34px; /* Gives the dashboard panel a polished shape */
+}
+
+.dashboard-header {
+  display: flex; /* Places title copy and logout action side by side */
+  gap: 20px; /* Adds spacing between header content and button */
+  align-items: flex-start; /* Aligns the logout button with the title area */
+  justify-content: space-between; /* Pushes logout to the far side */
+  margin-bottom: 28px; /* Separates the header from the table */
+}
+
+.table-card {
+  overflow-x: auto; /* Allows the table to scroll horizontally on small screens */
+  border: 1px solid rgba(43, 61, 54, 0.1); /* Adds a neat boundary around tabular data */
+  border-radius: 24px; /* Softens the table container */
+  background: rgba(255, 255, 255, 0.62); /* Gives the table its own surface */
+}
+
+table {
+  width: 100%; /* Makes the customer table fill its container */
+  border-collapse: collapse; /* Removes double borders between cells */
+  min-width: 620px; /* Preserves readable columns on narrow screens */
+}
+
+th,
+td {
+  padding: 17px 20px; /* Gives table cells comfortable spacing */
+  text-align: left; /* Keeps customer data easy to scan */
+  border-bottom: 1px solid rgba(43, 61, 54, 0.09); /* Separates rows with a subtle rule */
+}
+
+th {
+  color: #52625c; /* Makes header labels secondary but readable */
+  font-size: 0.75rem; /* Keeps header labels compact */
+  letter-spacing: 0.12em; /* Adds dashboard polish to header labels */
+  text-transform: uppercase; /* Distinguishes column labels from row values */
+  background: rgba(239, 227, 204, 0.55); /* Adds a warm header band */
+}
+
+td {
+  color: #1c2d28; /* Keeps row text readable */
+}
+
+tbody tr {
+  transition: background 140ms ease; /* Adds a subtle row hover transition */
+}
+
+tbody tr:hover {
+  background: rgba(220, 195, 146, 0.18); /* Highlights rows gently on hover */
+}
+
+tbody tr:last-child td {
+  border-bottom: 0; /* Removes the final row divider for a clean card edge */
+}
+
+@media (max-width: 680px) {
+  .auth-shell,
+  .dashboard-shell {
+    padding: 18px; /* Reduces page padding on small screens */
   }
-  a:hover {
-    color: #747bff;
+
+  .auth-card,
+  .dashboard-panel {
+    padding: 24px; /* Keeps cards comfortable on mobile */
+    border-radius: 24px; /* Slightly reduces large radius on mobile */
   }
-  button {
-    background-color: #f9f9f9;
+
+  .dashboard-header {
+    flex-direction: column; /* Stacks dashboard title and logout on narrow screens */
   }
 }

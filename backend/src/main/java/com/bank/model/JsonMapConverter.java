@@ -1,5 +1,6 @@
 package com.bank.model;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
@@ -9,6 +10,8 @@ import java.util.Map;
 public class JsonMapConverter
         implements AttributeConverter<Map<String, Object>, String> {
 
+    private static final TypeReference<Map<String, Object>> MAP_TYPE =
+            new TypeReference<>() {}; // Preserve generic map type for Jackson deserialization
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Override
@@ -21,9 +24,9 @@ public class JsonMapConverter
     }
 
     @Override
-    public Map convertToEntityAttribute(String json) {
+    public Map<String, Object> convertToEntityAttribute(String json) {
         try {
-            return objectMapper.readValue(json, Map.class);
+            return objectMapper.readValue(json, MAP_TYPE); // Deserialize with generic type info to avoid raw Map warnings
         } catch (Exception e) {
             return null;
         }

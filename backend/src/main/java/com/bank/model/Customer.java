@@ -46,18 +46,21 @@ public class Customer {
             orphanRemoval = true)
     @JsonIgnoreProperties({"customer", "hibernateLazyInitializer"})
     @Builder.Default // Keeps this default value when using Lombok builder
-
     private List<Account> accounts = new ArrayList<>();
     @Column(unique = true, nullable = false)
     private String username;
 
     @Column(nullable = false)
-    private  String password;// BCrypt hash — never plaintext
+    private String password; // BCrypt hash — never plaintext
 
-    private String role="ROLE_USER";// e.g. ROLE_USER or ROLE_ADMIN
-    private boolean enabled=true;
+    @Builder.Default // Keeps the default role when Customer is created through Lombok builder
+    private String role = "ROLE_USER"; // e.g. ROLE_USER or ROLE_ADMIN
+    @Builder.Default // Keeps new builder-created customers enabled unless explicitly disabled
+    private boolean enabled = true;
 
-    private int failedAttempts=0;
-    private boolean accountLocked=false;
+    @Builder.Default // Keeps failed login count initialized when using Lombok builder
+    private int failedAttempts = 0;
+    @Builder.Default // Keeps new builder-created customers unlocked by default
+    private boolean accountLocked = false;
     private LocalDateTime lockTime;
 }

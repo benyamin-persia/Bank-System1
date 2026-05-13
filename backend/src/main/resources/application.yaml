@@ -22,6 +22,7 @@ spring: # Spring configuration root
 
   jpa: # JPA configuration
     defer-datasource-initialization: true # Delay data initialization until JPA is ready
+    open-in-view: false # Disable database access during view rendering
     hibernate: # Hibernate settings
       ddl-auto: create-drop # Create schema on startup and drop on shutdown
     show-sql: true # Show SQL in logs

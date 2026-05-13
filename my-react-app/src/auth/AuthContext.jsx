@@ -1,8 +1,7 @@
-import { createContext, useContext, useState } from "react"; // Import React context and state hooks
+import { useState } from "react"; // Import React state hook for auth state
 import PropTypes from "prop-types"; // Import PropTypes for props validation
 import axiosInstance from "../api/axiosInstance"; // Import the configured axios instance
-
-const AuthContext = createContext(); // Create the authentication context
+import AuthStateContext from "./AuthStateContext"; // Import auth context from a non-component module for Fast Refresh
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null); // Store the logged in user state
@@ -22,16 +21,12 @@ export function AuthProvider({ children }) {
   }; // Define logout function
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthStateContext.Provider value={{ user, login, logout }}>
       {children} {/* Render child components with auth context */}
-    </AuthContext.Provider>
+    </AuthStateContext.Provider>
   ); // Provide auth state and functions to the app
 } // Export provider component
 
 AuthProvider.propTypes = {
   children: PropTypes.node.isRequired, // Validate that children is passed in
 }; // Add props validation for AuthProvider
-
-export function useAuth() {
-  return useContext(AuthContext); // Return the auth context value
-} // Export custom hook

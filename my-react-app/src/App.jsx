@@ -1,5 +1,5 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom"; // Import routing components from react router
-import { AuthProvider } from "./auth/AuthContext"; // Import AuthProvider for app wide auth state
+import { AuthProvider } from "./auth/AuthContext.jsx"; // Import AuthProvider from the component module explicitly
 import Login from "./pages/Login"; // Import Login page component
 import Customers from "./pages/Customers"; // Import Customers page component
 

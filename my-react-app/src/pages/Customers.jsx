@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"; // Import hooks for lifecycle and state
 import { useNavigate } from "react-router-dom"; // Import navigate hook for redirecting
 import axiosInstance from "../api/axiosInstance"; // Import configured axios instance
-import { useAuth } from "../auth/AuthContext"; // Import auth hook
+import { useAuth } from "../auth/useAuth"; // Import auth hook from non-component module
 
 function Customers() {
   const [customers, setCustomers] = useState([]); // Store customer list
@@ -28,31 +28,41 @@ function Customers() {
   }; // Define logout handler
 
   return (
-    <div>
-      <h2>Customers</h2> {/* Page title */}
-      <button onClick={handleLogout}>Logout</button> {/* Logout button */}
+    <main className="dashboard-shell">
+      <section className="dashboard-panel">
+        <header className="dashboard-header">
+          <div>
+            <p className="eyebrow">Customer directory</p> {/* Small label that explains this dashboard section */}
+            <h1>Customers</h1> {/* Page title */}
+            <p className="muted-text">Review the customers currently available from the banking API.</p> {/* Short supporting copy */}
+          </div>
+          <button className="secondary-button" onClick={handleLogout}>Logout</button> {/* Logout button */}
+        </header>
 
-      {error && <p>{error}</p>} {/* Show error message if one exists */}
+        {error && <p className="error-message">{error}</p>} {/* Show error message if one exists */}
 
-      <table border="1">
-        <thead>
-          <tr>
-            <th>ID</th> {/* Customer ID column */}
-            <th>Name</th> {/* Customer name column */}
-            <th>Email</th> {/* Customer email column */}
-          </tr>
-        </thead>
-        <tbody>
-          {customers.map((customer) => (
-            <tr key={customer.id}>
-              <td>{customer.id}</td> {/* Show customer ID */}
-              <td>{customer.name}</td> {/* Show customer name */}
-              <td>{customer.email}</td> {/* Show customer email */}
-            </tr>
-          ))} {/* Render one table row per customer */}
-        </tbody>
-      </table>
-    </div>
+        <div className="table-card">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th> {/* Customer ID column */}
+                <th>Name</th> {/* Customer name column */}
+                <th>Email</th> {/* Customer email column */}
+              </tr>
+            </thead>
+            <tbody>
+              {customers.map((customer) => (
+                <tr key={customer.id}>
+                  <td>{customer.id}</td> {/* Show customer ID */}
+                  <td>{customer.name || `${customer.firstName ?? ""} ${customer.lastName ?? ""}`.trim() || "Unnamed customer"}</td> {/* Show customer name with API shape fallback */}
+                  <td>{customer.email}</td> {/* Show customer email */}
+                </tr>
+              ))} {/* Render one table row per customer */}
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
   ); // Render customers page
 }
 

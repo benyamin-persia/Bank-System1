@@ -29,6 +29,7 @@ public class Notification {
     private NotificationType type;
 
     // false = not read, true = read
+    @Builder.Default // Keeps builder-created notifications unread unless explicitly marked read
     private boolean isRead = false;
 
     // Set automatically on INSERT
